@@ -1,0 +1,7 @@
+desktop-base
+ubuntu-session
+build-essential
+fonts-ubuntu
+xvfb
+xinit
+zenity
