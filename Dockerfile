@@ -119,7 +119,7 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 
 
 RUN pip install imatlab && python -mimatlab install
-RUN conda install --freeze-installed --satisfied-skip-solve --yes \
+RUN conda install --freeze-installed --yes \
     sos sos-notebook jupyterlab-sos sos-python sos-bash -c conda-forge
 
 ## END:
