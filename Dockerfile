@@ -18,6 +18,7 @@ ARG MATLAB_INSTALL_DIR=/opt/matlab/${MATLAB_RELEASE}
 # In brief: toolbox name format retains capitalization, replaces spaces with underlines.
 # Warning: these toolboxes can be huge.  Keep an eye on image size.
 ARG MATLAB_PRODUCTS="MATLAB Statistics_and_Machine_Learning_Toolbox"
+
 # See notes in matlab-deps Dockerfile regarding additional dependencies for specific Toolboxes:
 #     https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2022b/ubuntu20.04/Dockerfile
 #  Add these to ./additional-matlab-dependencies.txt
@@ -115,6 +116,11 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 #     tensorflow-gpu==2.8 && \
 #     fix-permissions $CONDA_DIR && \
 #     fix-permissions /home/$NB_USER
+
+
+RUN pip install imatlab && python -mimatlab install
+RUN conda install --freeze-installed --satisfied-skip-solve --yes \
+    sos sos-notebook jupyterlab-sos sos-python sos-bash -c conda-forge
 
 ## END:
 ## Reset back to unprivileged default user
