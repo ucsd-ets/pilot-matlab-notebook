@@ -3,7 +3,7 @@
 ## Prototype UC San Diego Datahub/DSMLP Matlab-enabled container
 ## 11/2022 agt@ucsd.edu
 
-FROM ucsdets/datahub-base-notebook:2022.1-stable
+FROM ucsdets/datahub-base-notebook:2022.3-stable
 # Could be: #FROM ucsdets/scipy-ml-notebook:2022.1-stable
 
 # Adding additional Ubuntu packages or pip/conda packages?  See "additional local customization" below
@@ -129,6 +129,10 @@ RUN conda install \
 #export DBUS_SESSION_BUS_ADDRESS
 #export DBUS_SESSION_BUS_PID
 #path=https://datahub.ucsd.edu/user/agt/test-server/vnc.html
+
+# Hardcode our campus license server for now (until we can update OPA # configuration)
+RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
+	echo "export MLM_LICENSE_FILE='1700@its-flexlm-lnx1.ucsd.edu'" > /etc/datahub-profile.d/matlab-flexlm.sh
 
 ## END:
 ## Reset back to unprivileged default user
