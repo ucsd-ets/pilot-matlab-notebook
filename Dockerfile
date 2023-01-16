@@ -3,7 +3,7 @@
 ## Prototype UC San Diego Datahub/DSMLP Matlab-enabled container
 ## 11/2022 agt@ucsd.edu
 
-FROM ucsdets/datahub-base-notebook:2022.3-stable
+FROM ucsdets/datahub-base-notebook:2022.1-stable
 # Could be: #FROM ucsdets/scipy-ml-notebook:2022.1-stable
 
 # Adding additional Ubuntu packages or pip/conda packages?  See "additional local customization" below
