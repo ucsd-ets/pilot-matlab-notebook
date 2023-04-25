@@ -3,7 +3,7 @@
 ## Prototype UC San Diego Datahub/DSMLP Matlab-enabled container
 ## 11/2022 agt@ucsd.edu
 
-FROM ucsdets/datahub-base-notebook:2022.1-stable
+FROM ucsdets/datahub-base-notebook:2023.2-stable
 # Could be: #FROM ucsdets/scipy-ml-notebook:2022.1-stable
 
 # Adding additional Ubuntu packages or pip/conda packages?  See "additional local customization" below
@@ -18,6 +18,7 @@ ARG MATLAB_INSTALL_DIR=/opt/matlab/${MATLAB_RELEASE}
 # In brief: toolbox name format retains capitalization, replaces spaces with underlines.
 # Warning: these toolboxes can be huge.  Keep an eye on image size.
 ARG MATLAB_PRODUCTS="MATLAB Statistics_and_Machine_Learning_Toolbox"
+
 # See notes in matlab-deps Dockerfile regarding additional dependencies for specific Toolboxes:
 #     https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2022b/ubuntu20.04/Dockerfile
 #  Add these to ./additional-matlab-dependencies.txt
@@ -115,6 +116,23 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 #     tensorflow-gpu==2.8 && \
 #     fix-permissions $CONDA_DIR && \
 #     fix-permissions /home/$NB_USER
+
+
+RUN pip install imatlab && python -mimatlab install
+RUN conda install \
+    sos sos-notebook jupyterlab-sos sos-python sos-bash sos-matlab -c conda-forge
+
+#RUN apt-get install -y lxde tigervnc-standalone-server novnc python3-websockify
+
+# into .vnc/xstartup
+#eval $(dbus-launch)
+#export DBUS_SESSION_BUS_ADDRESS
+#export DBUS_SESSION_BUS_PID
+#path=https://datahub.ucsd.edu/user/agt/test-server/vnc.html
+
+# Hardcode our campus license server for now (until we can update OPA # configuration)
+RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
+	echo "export MLM_LICENSE_FILE='1700@its-flexlm-lnx1.ucsd.edu'" > /etc/datahub-profile.d/matlab-flexlm.sh
 
 ## END:
 ## Reset back to unprivileged default user
