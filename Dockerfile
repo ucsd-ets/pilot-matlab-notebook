@@ -117,18 +117,9 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 #     fix-permissions $CONDA_DIR && \
 #     fix-permissions /home/$NB_USER
 
-
-RUN pip install imatlab && python -mimatlab install
-RUN conda install \
-    sos sos-notebook jupyterlab-sos sos-python sos-bash sos-matlab -c conda-forge
-
-#RUN apt-get install -y lxde tigervnc-standalone-server novnc python3-websockify
-
-# into .vnc/xstartup
-#eval $(dbus-launch)
-#export DBUS_SESSION_BUS_ADDRESS
-#export DBUS_SESSION_BUS_PID
-#path=https://datahub.ucsd.edu/user/agt/test-server/vnc.html
+#RUN pip install imatlab && python -mimatlab install
+#RUN conda install \
+    #sos sos-notebook jupyterlab-sos sos-python sos-bash sos-matlab -c conda-forge
 
 # Hardcode our campus license server for now (until we can update OPA # configuration)
 RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
