@@ -102,6 +102,10 @@ RUN ( cd ${MATLAB_INSTALL_DIR}/extern/engines/python && python setup.py install 
 RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 	echo "export PATH=${MATLAB_INSTALL_DIR}/bin:\${PATH}" > /etc/datahub-profile.d/matlab-path.sh
 
+# Hardcode our campus license server for now (until we can update OPA # configuration)
+RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
+	echo "export MLM_LICENSE_FILE='1700@its-flexlm-lnx1.ucsd.edu'" > /etc/datahub-profile.d/matlab-flexlm.sh
+
 ##################################################################
 # additional local customization 
 #
@@ -117,9 +121,6 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 #     fix-permissions $CONDA_DIR && \
 #     fix-permissions /home/$NB_USER
 
-# Hardcode our campus license server for now (until we can update OPA # configuration)
-RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
-	echo "export MLM_LICENSE_FILE='1700@its-flexlm-lnx1.ucsd.edu'" > /etc/datahub-profile.d/matlab-flexlm.sh
 
 ## END:
 ## Reset back to unprivileged default user
