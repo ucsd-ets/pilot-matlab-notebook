@@ -117,10 +117,6 @@ RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 #     fix-permissions $CONDA_DIR && \
 #     fix-permissions /home/$NB_USER
 
-#RUN pip install imatlab && python -mimatlab install
-#RUN conda install \
-    #sos sos-notebook jupyterlab-sos sos-python sos-bash sos-matlab -c conda-forge
-
 # Hardcode our campus license server for now (until we can update OPA # configuration)
 RUN mkdir -p -m 0755 /etc/datahub-profile.d && \
 	echo "export MLM_LICENSE_FILE='1700@its-flexlm-lnx1.ucsd.edu'" > /etc/datahub-profile.d/matlab-flexlm.sh
